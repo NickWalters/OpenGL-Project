@@ -669,14 +669,14 @@ static void mainmenu(int id)
     if (id == 96){
         duplicateObject(currObject);
     }
-    // ***********PART J (A)***************
+    // *********** PART J (A)************************
     if (id == 97){
       deleteObject(currObject);
     }
     if (id == 98){
       restoreDeletedObject(currObject);
     }
-    // ***********************************
+    // ************** PART J (A)*********************
     if (id == 99)
         exit(0);
 }
