@@ -296,6 +296,38 @@ static void addObject(int id)
     glutPostRedisplay();
 }
 
+static void duplicateObject(int id) {
+    if (nObjects == maxObjects) {
+        return;
+    }
+    sceneObjs[nObjects] = sceneObjs[id];
+    toolObj = currObject = nObjects++;
+    setToolCallbacks(adjustLocXZ, camRotZ(),
+                     adjustScaleY, mat2(0.05, 0, 0, 10.0));
+    glutPostRedisplay();
+}
+
+// ********* PART J (B) ******************* //
+static void deleteObject(int objectId){
+  sceneObjs[objectId] = sceneObjs[--nObjects];
+  doRotate();
+  glutPostRedisplay();
+}
+
+
+static void restoreDeletedObject(int objectId){
+  if (nObjects >= maxObjects){
+    return; 
+  }
+
+    sceneObjs[nObjects] = sceneObjs[objectId];
+    currObject = nObjects++;
+    setToolCallbacks(adjustLocXZ, camRotZ(),
+                     adjustScaleY, mat2(0.05,0,0,10.0) );
+    glutPostRedisplay();
+  }
+  // **************************** //
+
 //------The init function-----------------------------------------------------
 
 void init(void)
@@ -635,6 +667,18 @@ static void mainmenu(int id)
         setToolCallbacks(adjustAngleYX, mat2(400, 0, 0, -400),
                          adjustAngleZTexscale, mat2(400, 0, 0, 15));
     }
+    // PART J (A)
+    if (id == 96){
+        duplicateObject(currObject);
+    }
+    // ***********PART J (B)***************
+    if (id == 97){
+      deleteObject(currObject);
+    }
+    if (id == 98){
+      restoreDeletedObject(currObject);
+    }
+    // ***********************************
     if (id == 99)
         exit(0);
 }
@@ -665,6 +709,9 @@ static void makeMenu()
     glutAddSubMenu("Texture", texMenuId);
     glutAddSubMenu("Ground Texture", groundMenuId);
     glutAddSubMenu("Lights", lightMenuId);
+    glutAddMenuEntry("Duplicate Object", 96);
+    glutAddMenuEntry("Delete Object", 97);
+    glutAddMenuEntry("Restore Last Deleted Object", 98);
     glutAddMenuEntry("EXIT", 99);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
