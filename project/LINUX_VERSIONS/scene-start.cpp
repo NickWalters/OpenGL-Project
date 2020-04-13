@@ -295,7 +295,7 @@ static void addObject(int id)
                      adjustScaleY, mat2(0.05, 0, 0, 10.0));
     glutPostRedisplay();
 }
-
+// ********* PART J (B) ******************* //
 static void duplicateObject(int id) {
     if (nObjects == maxObjects) {
         return;
@@ -306,14 +306,12 @@ static void duplicateObject(int id) {
                      adjustScaleY, mat2(0.05, 0, 0, 10.0));
     glutPostRedisplay();
 }
-
-// ********* PART J (B) ******************* //
+// ********* PART J (A) ******************* //
 static void deleteObject(int objectId){
   sceneObjs[objectId] = sceneObjs[--nObjects];
   doRotate();
   glutPostRedisplay();
 }
-
 
 static void restoreDeletedObject(int objectId){
   if (nObjects >= maxObjects){
@@ -667,11 +665,11 @@ static void mainmenu(int id)
         setToolCallbacks(adjustAngleYX, mat2(400, 0, 0, -400),
                          adjustAngleZTexscale, mat2(400, 0, 0, 15));
     }
-    // PART J (A)
+    // ************PART J (B)**************
     if (id == 96){
         duplicateObject(currObject);
     }
-    // ***********PART J (B)***************
+    // ***********PART J (A)***************
     if (id == 97){
       deleteObject(currObject);
     }
